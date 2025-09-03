@@ -9,9 +9,11 @@ int	main(int argc, char **argv){
 	dict *head = fill_dictionary(argv[1]);
 	dict *current = head;
 
+	
 	for(int i = 0; i < 10; i++){
 		printf("%s\n", current->word);
 		current = current->next;
+		printf("%d\n", i);
 	}
 	while(head){
 		dict *temp = head;

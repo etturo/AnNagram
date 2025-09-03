@@ -17,14 +17,6 @@
 
 typedef unsigned short int boolean;
 
-typedef struct list{
-	char *word;
-	struct list *next;
-	struct list *prev;
-} dict;
-
-dict	*fill_dictionary(char *filename);
-dict	*new_word(char *word, dict *dictionary);
-
+boolean	fill_dictionary(char *filename);
 
 #endif
