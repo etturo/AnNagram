@@ -1,24 +1,19 @@
 #include "../includes/checker.h"
 
-boolean check(int n, char *reference, char *buffer){
-	int	valid_letter = 0;
-	int k = 0;
-
-	while(buffer && valid_letter < n)
-	{
-		if (word_len(&buffer[k]) != n)
+boolean	check(char *reference, char *file_word){
+	int len1 = word_len(reference);
+	int len2 = word_len(file_word);
+	if (len2 > len1)
+		return FALSE;
+	char ascii_count[256];
+	for(int i = 0; i < 256; i++)
+		ascii_count[i] = 0;
+	for(int i = 0; i < len1; i++)
+		ascii_count[(int)reference[i]]++;
+	for(int i = 0; i < len2; i++)
+		ascii_count[(int)file_word[i]]--;
+	for(int i = 0; i < 256; i++)
+		if(ascii_count[i] < 0)
 			return FALSE;
-		for(int j = 0; j < word_len(&buffer[k]); j++)
-		{
-			for(int i = 0; i < word_len(reference); i++)
-			{
-				if(reference[i] == buffer[k+j])
-					valid_letter++;
-			}
-		}
-		k += word_len(&buffer[k]);
-	}
-	if(valid_letter == n)
-		return TRUE;
-	return FALSE;
+	return TRUE;
 }

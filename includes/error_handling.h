@@ -4,7 +4,7 @@
 # define TRUE 1
 # define FALSE 0
 
-# define FILE_NOT_READABLE_MSG "File is not readable."
+# define FILE_NOT_READABLE_MSG "File is not readable or empty."
 # define ERROR_MSG "Error!"
 # define INVALID_ARGUMENTS "Invalid Arguments!"
 

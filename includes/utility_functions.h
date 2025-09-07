@@ -11,6 +11,7 @@ typedef unsigned short int boolean;
 int 	word_len(char *word);
 char	*ft_formatstr(char *str);
 boolean	ft_isprintable(char c);
-
+void	ft_strncpy(char *src, char *dest, unsigned int n);
+void	swap(char *a, char *b);
 
 #endif
