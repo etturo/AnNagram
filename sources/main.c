@@ -1,10 +1,10 @@
 #include "../includes/error_handling.h"
 #include "../includes/utility_functions.h"
 #include "../includes/checker.h"
-#include <fcntl.h>\
+#include <fcntl.h>
 
-#define BUFFER_SIZE 1250400
-#define FILENAME "../data/words.txt"
+#define O_RDONLY 0x0000
+#define FILENAME "data/words.txt"
 
 int	main(int argc, char **argv){
 	if(argc!=2 || !argv || !*argv)
@@ -18,6 +18,7 @@ int	main(int argc, char **argv){
 
 	char	buffer[1024];
 	char	word[256];
+	char	normalized_word[256];
 	int		bytes_read;
 	int		word_index = 0;
 	while((bytes_read = read(fd, buffer, sizeof(buffer))) > 0)
@@ -29,7 +30,9 @@ int	main(int argc, char **argv){
 				if(word_index > 0)
 				{
 					word[word_index] = '\0';
-					if(check(str, word) == TRUE)
+					ft_strncpy(word, normalized_word, sizeof(word));
+					ft_formatstr(normalized_word);
+					if(check(str, normalized_word) == TRUE)
 						printf("%s\n", word);
 				}
 				word_index = 0;
