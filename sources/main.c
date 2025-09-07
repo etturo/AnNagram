@@ -4,29 +4,46 @@
 #include <fcntl.h>\
 
 #define BUFFER_SIZE 1250400
-
-char	*filename = "../data/words.txt";
+#define FILENAME "../data/words.txt"
 
 int	main(int argc, char **argv){
 	if(argc!=2 || !argv || !*argv)
 		return puterrmsg(INVALID_ARGUMENTS);
+
 	char *str = ft_formatstr(argv[1]);
-	int fd = open(filename, O_RDONLY);
-	if (fd == 0)
+	int fd = open(FILENAME, O_RDONLY);
+
+	if (fd < 0)
 		return puterrmsg(FILE_NOT_READABLE_MSG);
-	char *buffer = (char*)malloc(BUFFER_SIZE*sizeof(char));
-	read(fd, buffer, BUFFER_SIZE);
-	int		len_count;
-	char	*file_word = NULL;
-	for(unsigned int i = 0; i < 1250378; i++)
+
+	char	buffer[1024];
+	char	word[256];
+	int		bytes_read;
+	int		word_index = 0;
+	while((bytes_read = read(fd, buffer, sizeof(buffer))) > 0)
 	{
-		len_count = word_len(buffer);
-		ft_strncpy(&buffer[i], file_word,len_count);
-		if(check(str, file_word) == TRUE)
-			printf("%s\n", file_word);
-		i += len_count;
+		for(int i = 0; i < bytes_read; i++)
+		{
+			if(buffer[i] == '\n')
+			{
+				if(word_index > 0)
+				{
+					word[word_index] = '\0';
+					if(check(str, word) == TRUE)
+						printf("%s\n", word);
+				}
+				word_index = 0;
+			}
+			else
+			{
+				if (word_index < (int)sizeof(word))
+				{
+					word[word_index] = buffer[i];
+					word_index++;
+				}
+			}
+		}
 	}
-	free (buffer);
 	close(fd);
 	return 0;
 }
