@@ -16,7 +16,7 @@ boolean check(int n, char *reference, char *buffer){
 					valid_letter++;
 			}
 		}
-		k += word_len(&buffer);
+		k += word_len(&buffer[k]);
 	}
 	if(valid_letter == n)
 		return TRUE;

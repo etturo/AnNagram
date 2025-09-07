@@ -5,3 +5,27 @@ int word_len(char *word){
 	for(count = 0; word[count] != '\n' && word[count] != '\0'; count++){}
 	return count;
 }
+
+boolean ft_isprintable(char c){
+	if (c <= 32 || c == 127)
+		return TRUE;
+	return FALSE;
+}
+
+char	*ft_formatstr(char *str){
+	if (str == NULL)
+		return (NULL);
+	int j = 0;
+	for(int i = 0; str[i] != '\0'; i++){
+		if (str[i] >= 'A' && str[i] <= 'Z'){
+			str[j] = str[i] + 32;
+			j++;
+		}
+		else if(ft_isprintable(str[i]) == FALSE){
+			str[j] = str[i];
+			j++;
+		}
+	}
+	str[j] = '\0';
+	return (&str[0]);
+}
