@@ -5,7 +5,7 @@ char *current_comb[10000];
 int printed = 0;
 
 struct list	*init_list(struct list **list){
-	(*list) = (struct list *)malloc(sizeof(struct list));
+	(*list) = (struct list *)xmalloc(sizeof(struct list));
 	(*list)->next = NULL;
 	(*list)->str = NULL;
 	(*list)->prev =NULL;
@@ -13,8 +13,8 @@ struct list	*init_list(struct list **list){
 }
 
 struct list	*add_element(struct list **list, char *str){
-	struct list *new_ele = malloc(sizeof(struct list));
-	new_ele->str = malloc(strlen(str) + 1);
+	struct list *new_ele = xmalloc(sizeof(struct list));
+	new_ele->str = xmalloc(strlen(str) + 1);
 	strcpy(new_ele->str, str);
 	new_ele->next = NULL;
 	if (*list)
