@@ -1,6 +1,7 @@
 #include "../includes/error_handling.h"
 #include "../includes/utility_functions.h"
 #include "../includes/checker.h"
+#include "../includes/word_comb.h"
 #include <fcntl.h>
 
 #define O_RDONLY 0x0000
@@ -21,6 +22,8 @@ int	main(int argc, char **argv){
 	char	normalized_word[256];
 	int		bytes_read;
 	int		word_index = 0;
+	struct list *list = init_list(&list);
+	struct list *head = list;
 	while((bytes_read = read(fd, buffer, sizeof(buffer))) > 0)
 	{
 		for(int i = 0; i < bytes_read; i++)
@@ -33,7 +36,7 @@ int	main(int argc, char **argv){
 					ft_strncpy(word, normalized_word, sizeof(word));
 					ft_formatstr(normalized_word);
 					if(check(str, normalized_word) == TRUE)
-						printf("%s\n", word);
+						list = add_element(&list, word);
 				}
 				word_index = 0;
 			}
@@ -47,6 +50,8 @@ int	main(int argc, char **argv){
 			}
 		}
 	}
+	print_list(&head->next);
+	free_list(&head);
 	close(fd);
 	return 0;
 }
