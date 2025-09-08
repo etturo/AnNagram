@@ -76,13 +76,3 @@ char normalize_char(char c) {
 			return c;
 	}
 }
-
-void	*xmalloc(size_t size) {
-	void *ptr = malloc(size);
-	if (!ptr) {
-		fprintf(stderr, "malloc failed for %zu bytes\n", size);
-		exit(EXIT_FAILURE);
-	}
-	printf("[DEBUG] malloc %zu bytes\n", size);
-	return ptr;
-}

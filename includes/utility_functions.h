@@ -15,7 +15,6 @@ boolean	ft_isprintable(char c);
 void	ft_strncpy(char *src, char *dest, unsigned int n);
 void	swap(char *a, char *b);
 char	normalize_char(char c);
-void	*xmalloc(size_t size);
 
 
 #endif
