@@ -1,17 +1,23 @@
 #include "../includes/word_comb.h"
 
+int comb_size = 0;
+char *current_comb[1000];
+
 struct list	*init_list(struct list **list){
 	(*list) = (struct list *)malloc(sizeof(struct list));
 	(*list)->next = NULL;
 	(*list)->str = NULL;
+	(*list)->prev =NULL;
 	return *list;
 }
 
 struct list	*add_element(struct list **list, char *str){
-	struct list *new_ele = (struct list *)malloc(sizeof(new_ele));
-	new_ele->str = malloc(sizeof(str));
-	ft_strncpy(str, new_ele->str, sizeof(str));
+	struct list *new_ele = malloc(sizeof(struct list));
+	new_ele->str = malloc(strlen(str) + 1);
+	strcpy(new_ele->str, str);
 	new_ele->next = NULL;
+	if (*list)
+		new_ele->prev = (*list);
 	(*list)->next = new_ele;
 	return new_ele;
 }
@@ -32,13 +38,68 @@ void	free_list(struct list **head){
 	{
 		temp = current;
 		current = temp->next;
+		if(temp->str)
+			free(temp->str);
 		free(temp);
 	}
 	*head = NULL;
 }
 
-void	find_and_print_comb(struct list **head){
-	struct list *current = (*head);
+boolean	is_solution(int char_set[]){
+	for(int i = 0; i < 256; i++)
+		if(char_set[i] != 0)
+			return FALSE;
+	return TRUE;
+}
 
+void	print_solution(){
+	for(int i = 0; i < comb_size; i++)
+		printf("%s ", current_comb[i]);
+	printf("\n");
+}
+
+void	backtrack(struct list *current, int char_set[]){
+	if(is_solution(char_set))
+		return print_solution();
+
+	if(!current)
+		return;
+
+	struct list *temp = current;
+	while(temp && temp->str)
+	{
+		boolean can_use = TRUE;
+		for(int i = 0; temp->str[i] != '\0'; i++) {
+			if(char_set[(unsigned char)temp->str[i]] <= 0) {
+				can_use = FALSE;
+				break;
+			}
+		}
+
+		if(can_use == TRUE)
+		{
+			current_comb[comb_size] = temp->str;
+			comb_size++;
+
+			for(int i = 0; temp->str[i] != '\0'; i++)
+				char_set[(unsigned char)temp->str[i]]--;
+			
+			backtrack(temp->next, char_set);
+
+			for(int i = 0; temp->str[i] != '\0'; i++)
+				char_set[(unsigned char)temp->str[i]]++;
+			comb_size--;
+
+		}
+		temp = temp->next;
+	}
+}
+
+void	find_comb(struct list *elements, char *ref){
+	int char_set[256] = {0};
+
+	for(int i = 0; ref[i] != '\0'; i++)
+			char_set[(unsigned char)ref[i]]++;
 	
+	backtrack(elements, char_set);
 }

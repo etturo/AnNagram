@@ -8,7 +8,7 @@
 #define FILENAME "data/words.txt"
 
 int	main(int argc, char **argv){
-	if(argc!=2 || !argv || !*argv)
+	if(argc<2 || !argv || !*argv)
 		return puterrmsg(INVALID_ARGUMENTS);
 
 	char *str = ft_formatstr(argv[1]);
@@ -50,7 +50,7 @@ int	main(int argc, char **argv){
 			}
 		}
 	}
-	print_list(&head->next);
+	find_comb(head->next, str);
 	free_list(&head);
 	close(fd);
 	return 0;
