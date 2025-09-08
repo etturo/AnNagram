@@ -1,7 +1,8 @@
 #include "../includes/word_comb.h"
 
 int comb_size = 0;
-char *current_comb[1000];
+char *current_comb[10000];
+int printed = 0;
 
 struct list	*init_list(struct list **list){
 	(*list) = (struct list *)malloc(sizeof(struct list));
@@ -60,7 +61,10 @@ void	print_solution(){
 
 void	backtrack(struct list *current, int char_set[]){
 	if(is_solution(char_set))
+	{
+		printed++;
 		return print_solution();
+	}
 
 	if(!current)
 		return;
@@ -95,11 +99,12 @@ void	backtrack(struct list *current, int char_set[]){
 	}
 }
 
-void	find_comb(struct list *elements, char *ref){
+int	find_comb(struct list *elements, char *ref){
 	int char_set[256] = {0};
 
 	for(int i = 0; ref[i] != '\0'; i++)
 			char_set[(unsigned char)ref[i]]++;
 	
 	backtrack(elements, char_set);
+	return printed;
 }

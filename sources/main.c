@@ -50,7 +50,11 @@ int	main(int argc, char **argv){
 			}
 		}
 	}
-	find_comb(head->next, str);
+	int printed = find_comb(head->next, str);
+	if (printed == 0)
+		puterrmsg(ANAGRAMS_NOT_FOUND);
+	else
+		printf("There were found %d anagrams\n", printed);
 	free_list(&head);
 	close(fd);
 	return 0;

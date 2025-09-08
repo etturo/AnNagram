@@ -17,7 +17,7 @@ struct list	*init_list(struct list **list);
 struct list	*add_element(struct list **list, char *str);
 void		print_list(struct list **list);
 void		free_list(struct list **head);
-void		find_comb(struct list *elements, char *ref);
+int			find_comb(struct list *elements, char *ref);
 void		backtrack(struct list *current, int char_set[]);
 void		print_solution();
 boolean		is_solution(int char_set[]);
