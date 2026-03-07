@@ -1,3 +1,15 @@
+# Give Up GitHub
+
+This project has given up GitHub. (See [Software Freedom Conservancy's Give Up GitHub site](https://giveupgithub.org/) for details.)
+
+You can now find this project at https://codeberg.org/etturo/AnNagram instead.
+
+Any use of this project's code by GitHub Copilot, past or present, is done without our permission. We do not consent to GitHub's use of this project's code in Copilot.
+
+Join us; you can [give up GitHub](https://giveupgithub.org/) too!
+
+---
+
 # AnNagram
 
 AnNagram is a C-based command-line tool designed to find multi-word anagrams for a given input string. It searches through a dictionary file to discover combinations of words that exactly match the characters of your input phrase.
